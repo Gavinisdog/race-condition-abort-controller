@@ -5,6 +5,7 @@ import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/race-condition-abort-controller/',
   plugins: [vue(), tailwindcss()],
   resolve: {
     alias: {
