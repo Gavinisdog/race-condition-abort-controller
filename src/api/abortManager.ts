@@ -26,17 +26,25 @@ export const track = (abortController: AbortController, key?: string) => {
 
 export const untrack = (abortController: AbortController) => {
   controllers.delete(abortController);
-  keyMap.forEach((set) => set.delete(abortController));
+  keyMap.forEach((set, key) => {
+    set.delete(abortController);
+    if (set.size === 0) keyMap.delete(key);
+  });
 };
 
+// 測試用
 export const abortAll = () => {
   controllers.forEach((controller) => controller.abort());
   controllers.clear();
+  keyMap.clear();
 };
 
 export const abortKey = (key: string) => {
   const set = keyMap.get(key);
   if (!set) return;
-  set.forEach((controller) => controller.abort());
-  set.clear();
+  set.forEach((controller) => {
+    controller.abort();
+    controllers.delete(controller);
+  });
+  keyMap.delete(key);
 };
