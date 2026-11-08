@@ -48,3 +48,9 @@ export const abortKey = (key: string) => {
   });
   keyMap.delete(key);
 };
+
+// 測試用
+export const getTrackingStats = () => ({
+  controllers: controllers.size,
+  keys: keyMap.size,
+});
